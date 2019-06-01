@@ -1,7 +1,25 @@
 public class MDPlayMovie extends MovieDisplayer {
+    Thread timeCounter = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while(true){
+                //System.out.println(downloadQueue.isEmpty());
+                while(true){
+                    try {
+                        Thread.sleep(1000);
+                        context.playTime++;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    });
+
 
     public MDPlayMovie(Context context) {
         super(context);
+        timeCounter.run();
     }
 
     @Override
@@ -21,7 +39,8 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void internetOff() {
-
+        context.problem = "internet";
+        this.holdMovie();
     }
 
     @Override
@@ -36,7 +55,8 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void downloadError() {
-
+        context.problem = "error";
+        this.holdMovie();
     }
 
     @Override
@@ -56,6 +76,10 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void holdMovie() {
+        timeCounter.stop();
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setMovieDisplayer(new MDPauseMovie(context));
 
     }
 
@@ -66,7 +90,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void resume() {
-
+        timeCounter.run();
     }
 
     @Override
