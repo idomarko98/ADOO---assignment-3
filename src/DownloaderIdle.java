@@ -118,7 +118,7 @@ public class DownloaderIdle extends Downloader{
         System.out.println("Exit Downloader-Idle state");
     }
 
-    
+
     public void downQueueNotEmpty() {
         if(context.connected) {
             On on = (On) context.currentState;
