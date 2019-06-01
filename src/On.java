@@ -68,7 +68,9 @@ public class On extends Astate implements IState {
 
     @Override
     public void downloadError() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).downloadError();
+        }
     }
 
     @Override

@@ -12,6 +12,8 @@ public class Context {
     public boolean waited = false; //boolean rather the pre-download state waited for 4 secs or not
     public int downloadSpeed = 1; //download speed - default 1
     public int percent = 0; //percent of download
+    public boolean downloadStop = false; //boolean rather a download was stopped for any reason
+    public int playTime = 0; //where is the movie at
 
     public Context(){
         currentState = new Off(this);
@@ -80,6 +82,8 @@ public class Context {
                 String number = scanner.nextLine();
                 space = Integer.valueOf(number);
                 break;
+            case "downloadError":
+                this.currentState.downloadError();
         }
     }
 

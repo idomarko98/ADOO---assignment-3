@@ -1,24 +1,7 @@
-public class DownloaderDownload extends Downloader {
+public class DownloaderError extends Downloader {
 
-    Thread downloadThread;
-
-    public DownloaderDownload(Context context) {
+    public DownloaderError(Context context) {
         super(context);
-
-        download();
-    }
-
-    private void download() {
-        downloadThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(context.percent < 100) {
-                    context.percent += context.downloadSpeed;
-                    //System.out.println(context.percent);
-                }
-            }
-        });
-        downloadThread.start();
     }
 
     @Override
@@ -53,9 +36,7 @@ public class DownloaderDownload extends Downloader {
 
     @Override
     public void downloadError() {
-        On on = (On) context.currentState;
-        on.exitState(this);
-        on.setDownloader(new DownloaderError(context));
+
     }
 
     @Override
@@ -90,12 +71,12 @@ public class DownloaderDownload extends Downloader {
 
     @Override
     public void entry() {
-        System.out.println("Enter Downloader-Download state");
+
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit Downloader-Download state");
+
     }
 
     @Override

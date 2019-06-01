@@ -2,6 +2,23 @@ public class DownloaderIdle extends Downloader{
 
     public DownloaderIdle(Context context) {
         super(context);
+
+        setDownloadStop();
+    }
+
+    private void setDownloadStop() {
+        //doing as a thread so that system will have time to process it
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    context.downloadStop = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
