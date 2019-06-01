@@ -1,4 +1,5 @@
 public class MDPlayMovie extends MovieDisplayer {
+    static public boolean isPaused = false;
     Thread timeCounter = new Thread(new Runnable() {
         @Override
         public void run() {
@@ -7,7 +8,8 @@ public class MDPlayMovie extends MovieDisplayer {
                 while(true){
                     try {
                         Thread.sleep(1000);
-                        context.playTime++;
+                        if(isPaused)
+                            context.playTime++;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -19,6 +21,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     public MDPlayMovie(Context context) {
         super(context);
+        isPaused = false;
         timeCounter.run();
     }
 
@@ -76,7 +79,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void holdMovie() {
-        timeCounter.stop();
+        isPaused = true;
         On on = (On) context.currentState;
         on.exitState(this);
         on.setMovieDisplayer(new MDPauseMovie(context));
