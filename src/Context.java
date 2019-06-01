@@ -9,7 +9,7 @@ public class Context {
     public Queue<Integer>downloadQueue; //download queue
     public int space = 100; //space on the disk
     public int currentDownload;
-    public boolean waited = false; //boolean rather the predownload state waited for 4 secs or not
+    public boolean waited = false; //boolean rather the pre-download state waited for 4 secs or not
     public int downloadSpeed = 1; //download speed - default 1
     public int percent = 0; //percent of download
 
