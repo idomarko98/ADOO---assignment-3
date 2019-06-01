@@ -68,6 +68,10 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void resume() {
+        if(context.problem != null){
+            System.out.println("Cannot resume a movie while an error exists!");
+            return;
+        }
         On on = (On) context.currentState;
         on.exitState(this);
         on.setMovieDisplayer(new MDPlayMovie(context));

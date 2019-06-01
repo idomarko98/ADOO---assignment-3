@@ -80,6 +80,21 @@ public class Context {
             case "downloadAborted":
                 this.currentState.downloadAborted();
                 break;
+            case "movieOn":
+                this.currentState.movieOn();
+                break;
+            case "movieOff":
+                this.currentState.movieOff();
+                break;
+            case "holdMovie":
+                this.currentState.holdMovie();
+                break;
+            case "resume":
+                this.currentState.resume();
+                break;
+            case "restartMovie":
+                this.currentState.restartMovie();
+                break;
         }
     }
 
