@@ -110,7 +110,9 @@ public class On extends Astate implements IState {
 
     @Override
     public void holdMovie() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).holdMovie();
+        }
     }
 
     @Override
