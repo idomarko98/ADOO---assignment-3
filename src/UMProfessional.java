@@ -17,6 +17,11 @@ public class UMProfessional extends UserMonitor {
             public void run() {
                 while(keepListening){
                     if(context.points < 7){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         moveToAdvance();
                     }
                 }
@@ -104,6 +109,7 @@ public class UMProfessional extends UserMonitor {
 
     @Override
     public void exit() {
+        keepListening = false;
         System.out.println("exit UserMonitor-Professional state");
     }
 }

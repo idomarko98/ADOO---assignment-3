@@ -17,9 +17,19 @@ public class UMAdvance extends UserMonitor {
             public void run() {
                 while(keepListening){
                     if(context.points >= 7){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         moveToPro();
                     }
                     if(context.points < 4){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         moveToBeginner();
                     }
                 }
@@ -113,6 +123,7 @@ public class UMAdvance extends UserMonitor {
 
     @Override
     public void exit() {
+        keepListening = false;
         System.out.println("exit UserMonitor-Advance state");
     }
 }

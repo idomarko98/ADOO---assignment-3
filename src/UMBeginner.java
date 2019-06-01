@@ -17,6 +17,11 @@ public class UMBeginner extends UserMonitor{
             public void run() {
                 while(keepListening){
                     if(context.points >= 4){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         moveToAdvance();
                     }
                 }
