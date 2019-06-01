@@ -1,9 +1,11 @@
-public class UMBeginner extends UserMonitor{
+public class UMAdvance extends UserMonitor {
 
     private boolean keepListening;
 
-    public UMBeginner(Context context) {
+    public UMAdvance(Context context) {
         super(context);
+
+        context.downloadSpeed = 1.2;
 
         listenToPoints();
     }
@@ -15,7 +17,7 @@ public class UMBeginner extends UserMonitor{
             public void run() {
                 while(keepListening){
                     if(context.points >= 4){
-                        moveToAdvance();
+                        moveToPro();
                     }
                 }
             }
@@ -24,10 +26,10 @@ public class UMBeginner extends UserMonitor{
         listenThread.start();
     }
 
-    private void moveToAdvance() {
+    private void moveToPro() {
         On on = (On) context.currentState;
         on.exitState(this);
-        on.setUserMonitor(new UMAdvance(context));
+        on.setUserMonitor(new UMProfessional(context));
     }
 
     @Override
@@ -97,14 +99,11 @@ public class UMBeginner extends UserMonitor{
 
     @Override
     public void entry() {
-        System.out.println("enter UserMonitor-Beginner state");
+
     }
 
     @Override
     public void exit() {
-        keepListening = false;
-        System.out.println("exit UserMonitor-Beginner state")
-        ;
-    }
 
+    }
 }

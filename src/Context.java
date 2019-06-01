@@ -10,14 +10,14 @@ public class Context {
     public int space = 100; //space on the disk
     public int currentDownload;
     public boolean waited = false; //boolean rather the pre-download state waited for 4 secs or not
-    public int downloadSpeed = 1; //download speed - default 1
+    public double downloadSpeed = 1; //download speed - default 1
     public int percent = 0; //percent of download
     public boolean downloadStop = false; //boolean rather a download was stopped for any reason
     public int playTime = 0; //where is the movie at
     public String problem; //will save the problem of the screening
     public String status; //status of the user
     public int points; //points of the user
-    
+
     public Context(){
         currentState = new Off(this);
         connected = true;
