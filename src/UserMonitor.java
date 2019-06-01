@@ -11,8 +11,6 @@ public abstract class UserMonitor extends Astate implements IState{
             @Override
             public void run() {
                 while(true){
-                    if(context.percent > 1)
-                        System.out.println(context.percent);
                     if(context.percent == 100) {
                         context.points++;
                         context.percent = 0;

@@ -16,7 +16,7 @@ public class Context {
     public int playTime = 0; //where is the movie at
     public String problem; //will save the problem of the screening
     public String status; //status of the user
-    public int points; //points of the user
+    public volatile int points; //points of the user
 
     public Context(){
         currentState = new Off(this);
