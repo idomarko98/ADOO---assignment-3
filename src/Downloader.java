@@ -10,6 +10,7 @@ public abstract class Downloader extends Astate implements IState{
     public void downloadAborted() {
         context.percent = 0;
         context.currentDownload = -1;
+        context.downloadStop = true;
         On on = (On) context.currentState;
         on.exitState(this);
         on.setDownloader(new DownloaderIdle(context));

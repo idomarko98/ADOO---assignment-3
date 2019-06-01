@@ -12,7 +12,7 @@ public class Context {
     public boolean waited = false; //boolean rather the pre-download state waited for 4 secs or not
     public double downloadSpeed = 1; //download speed - default 1
     public volatile int percent = 0; //percent of download
-    public boolean downloadStop = false; //boolean rather a download was stopped for any reason
+    public volatile boolean downloadStop = false; //boolean rather a download was stopped for any reason
     public int playTime = 0; //where is the movie at
     public String problem; //will save the problem of the paused screening
     public String status; //status of the user

@@ -1,14 +1,35 @@
 public abstract class UserMonitor extends Astate implements IState{
 
-    private static boolean first = true;
+    private static boolean firstFull = true;
+    private static boolean firstStop = true;
     public UserMonitor(Context context) {
         super(context);
 
         monitorFullDownload();
+        monitorDownloadStop();
+    }
+
+    private void monitorDownloadStop() {
+        if(firstStop){
+            Thread th = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        if(context.downloadStop){
+                            context.points = context.points - 1;
+                            context.downloadStop = false;
+                            //System.out.println(context.points);
+                        }
+                    }
+                }
+            });
+            th.start();
+            firstStop = false;
+        }
     }
 
     protected void monitorFullDownload(){
-        if(first) {
+        if(firstFull) {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -18,7 +39,7 @@ public abstract class UserMonitor extends Astate implements IState{
                             try {
                                 Thread.sleep(1000); //sleep so the downloader can catch up
                                 context.percent = 0;
-                                System.out.println(context.points);
+                                //System.out.println(context.points);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -27,7 +48,7 @@ public abstract class UserMonitor extends Astate implements IState{
                 }
             });
             t.start();
-            first = false;
+            firstFull = false;
         }
     }
 }

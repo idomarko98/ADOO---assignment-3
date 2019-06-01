@@ -8,7 +8,7 @@ public class DownloaderIdle extends Downloader{
 
         //context.percent = 0;
         setQueueListener();
-        setDownloadStop();
+        //setDownloadStop();
     }
 
     private void setQueueListener() {
