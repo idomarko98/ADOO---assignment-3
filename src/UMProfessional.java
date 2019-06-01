@@ -1,7 +1,35 @@
 public class UMProfessional extends UserMonitor {
 
+    private boolean keepListening;
+
     public UMProfessional(Context context) {
         super(context);
+
+        context.downloadSpeed = 1.5;
+
+        listenToPoints();
+    }
+
+    private void listenToPoints() {
+        keepListening = true;
+        Thread listenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(keepListening){
+                    if(context.points < 7){
+                        moveToAdvance();
+                    }
+                }
+            }
+        });
+
+        listenThread.start();
+    }
+
+    private void moveToAdvance() {
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setUserMonitor(new UMAdvance(context));
     }
 
     @Override
@@ -71,11 +99,11 @@ public class UMProfessional extends UserMonitor {
 
     @Override
     public void entry() {
-
+        System.out.println("enter UserMonitor-Professional state");
     }
 
     @Override
     public void exit() {
-
+        System.out.println("exit UserMonitor-Professional state");
     }
 }

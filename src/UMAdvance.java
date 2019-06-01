@@ -16,14 +16,23 @@ public class UMAdvance extends UserMonitor {
             @Override
             public void run() {
                 while(keepListening){
-                    if(context.points >= 4){
+                    if(context.points >= 7){
                         moveToPro();
+                    }
+                    if(context.points < 4){
+                        moveToBeginner();
                     }
                 }
             }
         });
 
         listenThread.start();
+    }
+
+    private void moveToBeginner() {
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setUserMonitor(new UMBeginner(context));
     }
 
     private void moveToPro() {
@@ -99,11 +108,11 @@ public class UMAdvance extends UserMonitor {
 
     @Override
     public void entry() {
-
+        System.out.println("enter UserMonitor-Advance state");
     }
 
     @Override
     public void exit() {
-
+        System.out.println("exit UserMonitor-Advance state");
     }
 }

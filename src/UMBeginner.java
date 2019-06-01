@@ -5,6 +5,8 @@ public class UMBeginner extends UserMonitor{
     public UMBeginner(Context context) {
         super(context);
 
+        context.downloadSpeed = 1;
+
         listenToPoints();
     }
 

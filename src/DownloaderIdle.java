@@ -6,7 +6,7 @@ public class DownloaderIdle extends Downloader{
     public DownloaderIdle(Context context) {
         super(context);
 
-        context.percent = 0;
+        //context.percent = 0;
         setQueueListener();
         setDownloadStop();
     }

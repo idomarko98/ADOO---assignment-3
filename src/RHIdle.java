@@ -27,7 +27,8 @@ public class RHIdle extends RequestHandler{
     public void fileRequest() {
         On on = (On)context.currentState;
         on.exitState(this);
-        on.setRequestHandler(new RHWorkRequest(context));
+        //on.setRequestHandler(new RHWorkRequest(context));
+        new RHWorkRequest(context);
     }
 
     @Override

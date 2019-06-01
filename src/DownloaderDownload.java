@@ -32,7 +32,7 @@ public class DownloaderDownload extends Downloader {
     }
 
     private void finishDownload() {
-        context.percent = 0;
+        //context.percent = 0;
         context.currentDownload = -1;
         context.space--;
         On on = (On) context.currentState;

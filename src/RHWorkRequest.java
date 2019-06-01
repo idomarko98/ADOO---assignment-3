@@ -79,23 +79,12 @@ public class RHWorkRequest extends RequestHandler {
     }
 
     private void addRequest() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int max = 101;
-                int min = 1;
-                Random random = new Random();
-                context.addToQueue(random.nextInt(max - min + 1) + min);
+        int max = 101;
+        int min = 1;
+        Random random = new Random();
+        context.addToQueue(random.nextInt(max - min + 1) + min);
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                moveToExit();
-            }
-        });
-        t.start();
+        moveToExit();
     }
 
     private void moveToExit() {
