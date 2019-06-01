@@ -90,7 +90,7 @@ public class RHWorkRequest extends RequestHandler {
     private void moveToExit() {
         On on = (On)context.currentState;
         on.exitState(this);
-        on.setState(this, new RHIdle(context));
+        on.setRequestHandler(new RHIdle(context));
     }
 
     @Override

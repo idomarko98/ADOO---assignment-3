@@ -81,10 +81,11 @@ public class DownloaderIdle extends Downloader{
 
     @Override
     public void downQueueNotEmpty() {
-        if(context.connected && context.space > 0) {
+        if(context.connected) {
             On on = (On) context.currentState;
             on.exitState(this);
-            on.setState(this, new DownloaderPreDownload(context));
+            //on.setState(this, new DownloaderPreDownload(context));
+            on.setDownloader(new DownloaderPreDownload(context));
         }
     }
 }

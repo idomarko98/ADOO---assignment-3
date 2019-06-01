@@ -1,10 +1,12 @@
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class On extends Astate implements IState {
 
-    private RequestHandler requestHandler;
-    private Downloader downloader;
+    private volatile RequestHandler requestHandler;
+    private volatile Downloader downloader;
     private MovieDisplayer movieDisplayer;
     private UserMonitor userMonitor;
     private static Downloader downloaderHistory = null;
@@ -116,8 +118,24 @@ public class On extends Astate implements IState {
         }
     }
 
-    public void setState(Astate state, Astate newState){
+    /*public void setState(Astate state, Astate newState){
         state = newState;
+    }*/
+
+    public void setDownloader(Downloader state){
+        downloader = state;
+    }
+
+    public void setRequestHandler(RequestHandler state){
+        requestHandler = state;
+    }
+
+    public void setMovieDisplayer(MovieDisplayer state){
+        movieDisplayer = state;
+    }
+
+    public void setUserMonitor(UserMonitor state){
+        userMonitor = state;
     }
 
     public void exitState(Astate state){

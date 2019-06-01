@@ -1,7 +1,29 @@
-public class RHIdle extends RequestHandler{
-    public RHIdle(Context context) {
+public class DownloaderWait extends Downloader {
+
+    public DownloaderWait(Context context) {
         super(context);
+
+        if(!context.waited)
+            timing();
+        checkCondition();
     }
+
+    private void checkCondition() {
+    }
+
+    private void timing() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        context.waited = true;
+        On on = (On) context.currentState;
+        on.exitState(this);
+        //on.setState(this, new DownloaderPreDownload(context));
+        on.setDownloader(new DownloaderWait(context));
+    }
+
 
     @Override
     public void turnOn() {
@@ -25,9 +47,7 @@ public class RHIdle extends RequestHandler{
 
     @Override
     public void fileRequest() {
-        On on = (On)context.currentState;
-        on.exitState(this);
-        on.setRequestHandler(new RHWorkRequest(context));
+
     }
 
     @Override
@@ -72,12 +92,12 @@ public class RHIdle extends RequestHandler{
 
     @Override
     public void entry() {
-        System.out.println("Enter RequestHandler-Idle state");
+        System.out.println("Enter Downloader-Wait state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit RequestHandler-Idle state");
+        System.out.println("Exit Downloader-Wait state");
     }
 
     @Override

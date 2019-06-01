@@ -2,6 +2,19 @@ public class DownloaderPreDownload extends Downloader {
 
     public DownloaderPreDownload(Context context) {
         super(context);
+
+        doAction();
+    }
+
+    private void doAction() {
+        context.setCurrentDownload(context.downloadQueue.remove());
+        if(context.space <= 0){
+            context.waited = false;
+            On on = (On) context.currentState;
+            on.exitState(this);
+            //on.setState(this, new DownloaderPreDownload(context));
+            on.setDownloader(new DownloaderWait(context));
+        }
     }
 
     @Override
@@ -72,6 +85,7 @@ public class DownloaderPreDownload extends Downloader {
     @Override
     public void entry() {
         System.out.println("Enter Downloader-PreDownload state");
+
     }
 
     @Override

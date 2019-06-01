@@ -6,8 +6,10 @@ public class Context {
 
     public IState currentState;
     public boolean connected; //is connected to the internet
-    private Queue<Integer>downloadQueue; //download queue
-    public int space = 100; //space on the disk
+    public Queue<Integer>downloadQueue; //download queue
+    public int space = 0; //space on the disk
+    public int currentDownload;
+    public boolean waited = false; //boolean rather the predownload state waited for 4 secs or not
 
     public Context(){
         currentState = new Off(this);
@@ -26,6 +28,23 @@ public class Context {
     }
 
     public void start(){
+        Thread queueListenerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    //System.out.println(downloadQueue.isEmpty());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(!downloadQueue.isEmpty())
+                        handleInput("downQueueNotEmpty");
+                }
+            }
+        });
+        queueListenerThread.start();
+
         Thread inputThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -36,18 +55,7 @@ public class Context {
                 }
             }
         });
-        inputThread.run();
-
-        Thread queueListenerThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    if(!downloadQueue.isEmpty())
-                        handleInput("downQueueNotEmpty");
-                }
-            }
-        });
-        queueListenerThread.run();
+        inputThread.start();
     }
 
     private void handleInput(String input){
@@ -75,5 +83,9 @@ public class Context {
 
     public void addToQueue(int request){
         downloadQueue.add(request);
+    }
+
+    public void setCurrentDownload(int current){
+        currentDownload = current;
     }
 }
