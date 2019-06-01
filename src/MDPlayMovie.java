@@ -80,7 +80,6 @@ public class MDPlayMovie extends MovieDisplayer {
         On on = (On) context.currentState;
         on.exitState(this);
         on.setMovieDisplayer(new MDPauseMovie(context));
-
     }
 
     @Override
@@ -90,16 +89,16 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void resume() {
-        timeCounter.run();
+
     }
 
     @Override
     public void entry() {
-
+        System.out.println("Enter MovieDisplayer-Play state");
     }
 
     @Override
     public void exit() {
-
+        System.out.println("Exit MovieDisplayer-Play state");
     }
 }
