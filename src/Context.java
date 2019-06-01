@@ -7,9 +7,11 @@ public class Context {
     public IState currentState;
     public boolean connected; //is connected to the internet
     public Queue<Integer>downloadQueue; //download queue
-    public int space = 0; //space on the disk
+    public int space = 100; //space on the disk
     public int currentDownload;
     public boolean waited = false; //boolean rather the predownload state waited for 4 secs or not
+    public int downloadSpeed = 1; //download speed - default 1
+    public int percent = 0; //percent of download
 
     public Context(){
         currentState = new Off(this);
@@ -72,6 +74,11 @@ public class Context {
                 break;
             case "downQueueNotEmpty":
                 this.currentState.downQueueNotEmpty();
+                break;
+            case "setSpace":
+                Scanner scanner = new Scanner(System.in);
+                String number = scanner.nextLine();
+                space = Integer.valueOf(number);
                 break;
         }
     }

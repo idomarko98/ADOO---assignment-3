@@ -1,24 +1,24 @@
-public class DownloaderPreDownload extends Downloader {
+public class DownloaderDownload extends Downloader {
 
-    public DownloaderPreDownload(Context context) {
+    Thread downloadThread;
+
+    public DownloaderDownload(Context context) {
         super(context);
 
-        doAction();
+        download();
     }
 
-    private void doAction() {
-        context.setCurrentDownload(context.downloadQueue.remove());
-        if(context.space <= 0){
-            context.waited = false;
-            On on = (On) context.currentState;
-            on.exitState(this);
-            on.setDownloader(new DownloaderWait(context));
-        }
-        else if(context.space > 0 && context.connected){
-            On on = (On) context.currentState;
-            on.exitState(this);
-            on.setDownloader(new DownloaderDownload(context));
-        }
+    private void download() {
+        downloadThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(context.percent < 100) {
+                    context.percent += context.downloadSpeed;
+                    System.out.println(context.percent);
+                }
+            }
+        });
+        downloadThread.start();
     }
 
     @Override
@@ -88,13 +88,12 @@ public class DownloaderPreDownload extends Downloader {
 
     @Override
     public void entry() {
-        System.out.println("Enter Downloader-PreDownload state");
-
+        System.out.println("Enter Downloader-Download state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit Downloader-PreDownload state");
+        System.out.println("Exit Downloader-Download state");
     }
 
     @Override

@@ -9,18 +9,29 @@ public class DownloaderWait extends Downloader {
     }
 
     private void checkCondition() {
+        if(context.space > 0 && context.connected){
+            On on = (On) context.currentState;
+            on.exitState(this);
+            on.setDownloader(new DownloaderDownload(context));
+            context.waited = false;
+        }
+        else if(context.waited){
+            On on = (On) context.currentState;
+            on.exitState(this);
+            on.setDownloader(new DownloaderIdle(context));
+            context.waited = false;
+        }
     }
 
     private void timing() {
         try {
-            Thread.sleep(4000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         context.waited = true;
         On on = (On) context.currentState;
         on.exitState(this);
-        //on.setState(this, new DownloaderPreDownload(context));
         on.setDownloader(new DownloaderWait(context));
     }
 
