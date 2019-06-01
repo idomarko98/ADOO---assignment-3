@@ -48,7 +48,7 @@ public class DownloaderPreDownload extends Downloader {
 
     @Override
     public void downloadAborted() {
-
+        super.downloadAborted();
     }
 
     @Override
@@ -88,13 +88,13 @@ public class DownloaderPreDownload extends Downloader {
 
     @Override
     public void entry() {
-        System.out.println("Enter Downloader-PreDownload state");
+        System.out.println("enter Downloader-PreDownload state");
 
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit Downloader-PreDownload state");
+        System.out.println("exit Downloader-PreDownload state");
     }
 
 }

@@ -72,12 +72,12 @@ public class RHIdle extends RequestHandler{
 
     @Override
     public void entry() {
-        System.out.println("Enter RequestHandler-Idle state");
+        System.out.println("enter RequestHandler-Idle state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit RequestHandler-Idle state");
+        System.out.println("exit RequestHandler-Idle state");
     }
 
 }

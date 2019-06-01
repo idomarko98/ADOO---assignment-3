@@ -94,11 +94,11 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void entry() {
-        System.out.println("Enter MovieDisplayer-Play state");
+        System.out.println("enter MovieDisplayer-Play state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit MovieDisplayer-Play state");
+        System.out.println("exit MovieDisplayer-Play state");
     }
 }

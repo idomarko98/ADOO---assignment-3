@@ -75,16 +75,27 @@ public class RHWorkRequest extends RequestHandler {
 
     @Override
     public void entry() {
-        System.out.println("Enter RequestHandler-WorkRequest state");
+        System.out.println("enter RequestHandler-WorkRequest state");
     }
 
     private void addRequest() {
-        int max = 101;
-        int min = 1;
-        Random random = new Random();
-        context.addToQueue(random.nextInt(max - min + 1) + min);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int max = 101;
+                int min = 1;
+                Random random = new Random();
+                context.addToQueue(random.nextInt(max - min + 1) + min);
 
-        moveToExit();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                moveToExit();
+            }
+        });
+        t.start();
     }
 
     private void moveToExit() {
@@ -95,7 +106,7 @@ public class RHWorkRequest extends RequestHandler {
 
     @Override
     public void exit() {
-        System.out.println("Exit RequestHandler-WorkRequest state");
+        System.out.println("exit RequestHandler-WorkRequest state");
     }
 
 }

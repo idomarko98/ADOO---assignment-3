@@ -5,8 +5,8 @@ import java.util.List;
 
 public class On extends Astate implements IState {
 
-    private volatile RequestHandler requestHandler;
-    private volatile Downloader downloader;
+    private RequestHandler requestHandler;
+    private Downloader downloader;
     private MovieDisplayer movieDisplayer;
     private UserMonitor userMonitor;
     private static Downloader downloaderHistory = null;
@@ -17,10 +17,20 @@ public class On extends Astate implements IState {
         super(context);
 
         requestHandler = new RHIdle(context);
-        if(downloaderHistory == null)
+        if(downloaderHistory == null || downloaderHistory instanceof DownloaderIdle)
             downloader = new DownloaderIdle(context);
-        else
-            downloader = downloaderHistory;
+        else {
+            if(downloaderHistory instanceof  DownloaderDownload)
+                downloader = new DownloaderDownload(context);
+            else if(downloaderHistory instanceof  DownloaderError)
+                downloader = new DownloaderError(context);
+            else if (downloaderHistory instanceof DownloaderHold)
+                downloader = new DownloaderHold(context);
+            else if(downloaderHistory instanceof DownloaderPreDownload)
+                downloader = new DownloaderPreDownload(context);
+            else if(downloaderHistory instanceof  DownloaderWait)
+                downloader = new DownloaderWait(context);
+        }
         movieDisplayer = new MDIdle(context);
         userMonitor = new UMBeginner(context);
 
@@ -46,12 +56,16 @@ public class On extends Astate implements IState {
 
     @Override
     public void internetOn() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).internetOn();
+        }
     }
 
     @Override
     public void internetOff() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).internetOff();
+        }
     }
 
     @Override
@@ -63,7 +77,9 @@ public class On extends Astate implements IState {
 
     @Override
     public void downloadAborted() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).downloadAborted();
+        }
     }
 
     @Override
@@ -75,7 +91,9 @@ public class On extends Astate implements IState {
 
     @Override
     public void errorFixed() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).errorFixed();
+        }
     }
 
     @Override
@@ -118,22 +136,51 @@ public class On extends Astate implements IState {
     }*/
 
     public void setDownloader(Downloader state){
-        downloader = state;
+        for(int i = 0; i < states.size(); i++){
+            if(states.get(i) instanceof  Downloader) {
+                states.remove(i);
+                states.add(i, state);
+                downloader = state;
+                downloaderHistory = state;
+            }
+        }
     }
 
     public void setRequestHandler(RequestHandler state){
-        requestHandler = state;
+        for(int i = 0; i < states.size(); i++){
+            if(states.get(i) instanceof  RequestHandler) {
+                states.remove(i);
+                states.add(i, state);
+                requestHandler = state;
+            }
+        }
     }
 
     public void setMovieDisplayer(MovieDisplayer state){
-        movieDisplayer = state;
+        for(int i = 0; i < states.size(); i++){
+            if(states.get(i) instanceof  MovieDisplayer) {
+                states.remove(i);
+                states.add(i, state);
+                movieDisplayer = state;
+            }
+        }
     }
 
     public void setUserMonitor(UserMonitor state){
-        userMonitor = state;
+        for(int i = 0; i < states.size(); i++){
+            if(states.get(i) instanceof  UserMonitor) {
+                states.remove(i);
+                states.add(i, state);
+                userMonitor = state;
+            }
+        }
     }
 
     public void exitState(Astate state){
         state.exit();
+    }
+
+    public Downloader getDownloader() {
+        return downloader;
     }
 }

@@ -1,6 +1,7 @@
 public class DownloaderDownload extends Downloader {
 
-    Thread downloadThread;
+    private Thread downloadThread;
+    private boolean keepPercent;
 
     public DownloaderDownload(Context context) {
         super(context);
@@ -9,16 +10,34 @@ public class DownloaderDownload extends Downloader {
     }
 
     private void download() {
+        keepPercent = true;
         downloadThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(context.percent < 100) {
+                while(keepPercent && context.percent < 100) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     context.percent += context.downloadSpeed;
                     //System.out.println(context.percent);
+                }
+                if(context.percent >= 100){
+                    finishDownload();
                 }
             }
         });
         downloadThread.start();
+    }
+
+    private void finishDownload() {
+        context.percent = 0;
+        context.currentDownload = -1;
+        context.space--;
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setDownloader(new DownloaderIdle(context));
     }
 
     @Override
@@ -38,7 +57,9 @@ public class DownloaderDownload extends Downloader {
 
     @Override
     public void internetOff() {
-
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setDownloader(new DownloaderHold(context));
     }
 
     @Override
@@ -48,7 +69,7 @@ public class DownloaderDownload extends Downloader {
 
     @Override
     public void downloadAborted() {
-
+        super.downloadAborted();
     }
 
     @Override
@@ -90,12 +111,13 @@ public class DownloaderDownload extends Downloader {
 
     @Override
     public void entry() {
-        System.out.println("Enter Downloader-Download state");
+        System.out.println("enter Downloader-Download state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit Downloader-Download state");
+        keepPercent = false;
+        System.out.println("exit Downloader-Download state");
     }
 
 }

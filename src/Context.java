@@ -65,6 +65,19 @@ public class Context {
                 break;
             case "downloadError":
                 this.currentState.downloadError();
+                break;
+            case "errorFixed":
+                this.currentState.errorFixed();
+                break;
+            case "internetOn":
+                this.currentState.internetOn();
+                break;
+            case "internetOff":
+                this.currentState.internetOff();
+                break;
+            case "downloadAborted":
+                this.currentState.downloadAborted();
+                break;
         }
     }
 

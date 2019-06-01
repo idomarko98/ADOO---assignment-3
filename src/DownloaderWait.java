@@ -18,6 +18,7 @@ public class DownloaderWait extends Downloader {
         else if(context.waited){
             On on = (On) context.currentState;
             context.downloadStop = true;
+            context.currentDownload = -1;
             on.exitState(this);
             on.setDownloader(new DownloaderIdle(context));
             context.waited = false;
@@ -64,7 +65,7 @@ public class DownloaderWait extends Downloader {
 
     @Override
     public void downloadAborted() {
-
+        super.downloadAborted();
     }
 
     @Override
@@ -104,12 +105,12 @@ public class DownloaderWait extends Downloader {
 
     @Override
     public void entry() {
-        System.out.println("Enter Downloader-Wait state");
+        System.out.println("enter Downloader-Wait state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit Downloader-Wait state");
+        System.out.println("exit Downloader-Wait state");
     }
 
 }

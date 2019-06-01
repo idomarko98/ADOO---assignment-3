@@ -75,11 +75,11 @@ public class MDIdle extends MovieDisplayer{
 
     @Override
     public void entry() {
-        System.out.println("Enter MovieDisplayer-Idle state");
+        System.out.println("enter MovieDisplayer-Idle state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit MovieDisplayer-Idle state");
+        System.out.println("exit MovieDisplayer-Idle state");
     }
 }

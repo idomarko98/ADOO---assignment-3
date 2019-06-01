@@ -75,11 +75,11 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void entry() {
-        System.out.println("Enter MovieDisplayer-Pause state");
+        System.out.println("enter MovieDisplayer-Pause state");
     }
 
     @Override
     public void exit() {
-        System.out.println("Exit MovieDisplayer-Pause state");
+        System.out.println("exit MovieDisplayer-Pause state");
     }
 }

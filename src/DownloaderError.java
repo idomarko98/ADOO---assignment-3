@@ -2,6 +2,34 @@ public class DownloaderError extends Downloader {
 
     public DownloaderError(Context context) {
         super(context);
+
+        startTimer();
+    }
+
+    private void startTimer() {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    moveToIdle();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+    }
+
+    private void moveToIdle() {
+        //if(this == ((On)context.currentState).down)
+        On on = (On) context.currentState;
+        if(this != on.getDownloader())
+            return;
+        on.exitState(this);
+        context.downloadStop = true;
+        context.currentDownload = -1;
+        on.setDownloader(new DownloaderIdle(context));
     }
 
     @Override
@@ -31,7 +59,7 @@ public class DownloaderError extends Downloader {
 
     @Override
     public void downloadAborted() {
-
+        super.downloadAborted();
     }
 
     @Override
@@ -41,7 +69,9 @@ public class DownloaderError extends Downloader {
 
     @Override
     public void errorFixed() {
-
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setDownloader(new DownloaderDownload(context));
     }
 
     @Override
@@ -71,12 +101,12 @@ public class DownloaderError extends Downloader {
 
     @Override
     public void entry() {
-
+        System.out.println("enter Downloader-Error state");
     }
 
     @Override
     public void exit() {
-
+        System.out.println("exit Downloader-Error state");
     }
 
 }

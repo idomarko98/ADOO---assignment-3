@@ -1,6 +1,6 @@
-public class UMBeginner extends UserMonitor{
+public class DownloaderHold extends Downloader {
 
-    public UMBeginner(Context context) {
+    public DownloaderHold(Context context) {
         super(context);
     }
 
@@ -16,7 +16,9 @@ public class UMBeginner extends UserMonitor{
 
     @Override
     public void internetOn() {
-
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setDownloader(new DownloaderDownload(context));
     }
 
     @Override
@@ -31,7 +33,7 @@ public class UMBeginner extends UserMonitor{
 
     @Override
     public void downloadAborted() {
-
+        super.downloadAborted();
     }
 
     @Override
@@ -71,12 +73,11 @@ public class UMBeginner extends UserMonitor{
 
     @Override
     public void entry() {
-        System.out.println("enter UserMonitor-Beginner state");
+        System.out.println("enter Downloader-Hold state");
     }
 
     @Override
     public void exit() {
-        System.out.println("exit UserMonitor-Beginner state");
+        System.out.println("exit Downloader-Hold state");
     }
-
 }
