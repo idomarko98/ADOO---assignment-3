@@ -46,7 +46,11 @@ public class MDIdle extends MovieDisplayer{
 
     @Override
     public void movieOn() {
-
+        if(context.percent >= 20){
+            On on = (On)context.currentState;
+            on.exitState(this);
+            on.setMovieDisplayer(new playMovie());
+        }
     }
 
     @Override
