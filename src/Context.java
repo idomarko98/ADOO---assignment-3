@@ -14,6 +14,7 @@ public class Context {
     public int percent = 0; //percent of download
     public boolean downloadStop = false; //boolean rather a download was stopped for any reason
     public int playTime = 0; //where is the movie at
+    public String problem; //will save the problem of the screening
 
     public Context(){
         currentState = new Off(this);
@@ -32,23 +33,6 @@ public class Context {
     }
 
     public void start(){
-        Thread queueListenerThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    //System.out.println(downloadQueue.isEmpty());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if(!downloadQueue.isEmpty())
-                        handleInput("downQueueNotEmpty");
-                }
-            }
-        });
-        queueListenerThread.start();
-
         Thread inputThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -73,9 +57,6 @@ public class Context {
                 break;
             case "fileRequest":
                 this.currentState.fileRequest();
-                break;
-            case "downQueueNotEmpty":
-                this.currentState.downQueueNotEmpty();
                 break;
             case "setSpace":
                 Scanner scanner = new Scanner(System.in);

@@ -113,13 +113,6 @@ public class On extends Astate implements IState {
         System.out.println("Exit On state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-        for(int i = 0; i <states.size(); i++){
-            states.get(i).downQueueNotEmpty();
-        }
-    }
-
     /*public void setState(Astate state, Astate newState){
         state = newState;
     }*/

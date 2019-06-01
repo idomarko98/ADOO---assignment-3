@@ -98,8 +98,4 @@ public class DownloaderDownload extends Downloader {
         System.out.println("Exit Downloader-Download state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

@@ -82,9 +82,4 @@ public class MDIdle extends MovieDisplayer{
     public void exit() {
         System.out.println("Exit MovieDisplayer-Idle state");
     }
-
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

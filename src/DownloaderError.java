@@ -79,8 +79,4 @@ public class DownloaderError extends Downloader {
 
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

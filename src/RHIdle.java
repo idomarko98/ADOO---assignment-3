@@ -80,8 +80,4 @@ public class RHIdle extends RequestHandler{
         System.out.println("Exit RequestHandler-Idle state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

@@ -78,9 +78,4 @@ public class MDPlayMovie extends MovieDisplayer {
     public void exit() {
 
     }
-
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

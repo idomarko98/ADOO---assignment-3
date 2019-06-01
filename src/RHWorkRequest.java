@@ -98,8 +98,4 @@ public class RHWorkRequest extends RequestHandler {
         System.out.println("Exit RequestHandler-WorkRequest state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

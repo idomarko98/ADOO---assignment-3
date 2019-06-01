@@ -112,8 +112,4 @@ public class DownloaderWait extends Downloader {
         System.out.println("Exit Downloader-Wait state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

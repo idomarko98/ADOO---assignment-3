@@ -30,5 +30,4 @@ public interface IState {
 
     public void exit();
 
-    public void downQueueNotEmpty();
 }

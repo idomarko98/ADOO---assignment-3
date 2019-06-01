@@ -79,8 +79,4 @@ public class UMBeginner extends UserMonitor{
         System.out.println("Exit UserMonitor-Beginner state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

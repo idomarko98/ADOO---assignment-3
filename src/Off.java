@@ -79,10 +79,5 @@ public class Off extends Astate implements IState {
         System.out.println("Exit Off state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
-
 
 }

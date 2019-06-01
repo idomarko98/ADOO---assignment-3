@@ -97,8 +97,4 @@ public class DownloaderPreDownload extends Downloader {
         System.out.println("Exit Downloader-PreDownload state");
     }
 
-    @Override
-    public void downQueueNotEmpty() {
-
-    }
 }

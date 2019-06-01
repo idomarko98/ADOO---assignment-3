@@ -1,9 +1,31 @@
 public class DownloaderIdle extends Downloader{
 
+    Thread queueListener;
+
     public DownloaderIdle(Context context) {
         super(context);
 
+        setQueueListener();
         setDownloadStop();
+    }
+
+    private void setQueueListener() {
+        Thread queueListenerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    //System.out.println(downloadQueue.isEmpty());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(!context.downloadQueue.isEmpty())
+                        downQueueNotEmpty();
+                }
+            }
+        });
+        queueListenerThread.start();
     }
 
     private void setDownloadStop() {
@@ -96,7 +118,7 @@ public class DownloaderIdle extends Downloader{
         System.out.println("Exit Downloader-Idle state");
     }
 
-    @Override
+    
     public void downQueueNotEmpty() {
         if(context.connected) {
             On on = (On) context.currentState;
