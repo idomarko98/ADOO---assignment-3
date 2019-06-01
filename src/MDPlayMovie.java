@@ -4,18 +4,15 @@ public class MDPlayMovie extends MovieDisplayer {
         @Override
         public void run() {
             while(true){
-                //System.out.println(downloadQueue.isEmpty());
-                while(true){
-                    try {
-                        Thread.sleep(1000);
-                        if(isPaused)
-                            context.playTime++;
-                        if(context.percent==100){
-                            movieOff();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                try {
+                    Thread.sleep(1000);
+                    if(isPaused)
+                        context.playTime++;
+                    if(context.percent==100){
+                        movieOff();
                     }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
