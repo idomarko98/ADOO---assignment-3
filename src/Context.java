@@ -15,7 +15,9 @@ public class Context {
     public boolean downloadStop = false; //boolean rather a download was stopped for any reason
     public int playTime = 0; //where is the movie at
     public String problem; //will save the problem of the screening
-
+    public String status; //status of the user
+    public int points; //points of the user
+    
     public Context(){
         currentState = new Off(this);
         connected = true;
