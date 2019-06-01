@@ -10,6 +10,9 @@ public class MDPlayMovie extends MovieDisplayer {
                         Thread.sleep(1000);
                         if(isPaused)
                             context.playTime++;
+                        if(context.percent==100){
+                            movieOff();
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -22,7 +25,7 @@ public class MDPlayMovie extends MovieDisplayer {
     public MDPlayMovie(Context context) {
         super(context);
         isPaused = false;
-        timeCounter.run();
+        timeCounter.start();
     }
 
     @Override
@@ -89,7 +92,7 @@ public class MDPlayMovie extends MovieDisplayer {
     @Override
     public void movieOff() {
         isPaused = true;
-        //context.playTime = 0;
+        context.playTime = 0;
         On on = (On) context.currentState;
         on.exitState(this);
         on.setMovieDisplayer(new MDIdle(context));

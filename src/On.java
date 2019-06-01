@@ -105,7 +105,9 @@ public class On extends Astate implements IState {
 
     @Override
     public void restartMovie() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).restartMovie();
+        }
     }
 
     @Override
@@ -117,12 +119,16 @@ public class On extends Astate implements IState {
 
     @Override
     public void movieOff() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).movieOff();
+        }
     }
 
     @Override
     public void resume() {
-
+        for(int i = 0; i <states.size(); i++){
+            states.get(i).resume();
+        }
     }
 
     @Override
