@@ -20,7 +20,6 @@ public class DownloaderDownload extends Downloader {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(context.downloadSpeed);
                     context.percent += context.downloadSpeed;
                     //System.out.println(context.percent);
                 }
