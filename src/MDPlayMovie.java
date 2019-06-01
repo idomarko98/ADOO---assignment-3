@@ -51,7 +51,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void restartMovie() {
-
+        context.playTime = 0;
     }
 
     @Override
