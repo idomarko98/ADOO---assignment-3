@@ -31,7 +31,11 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void downloadAborted() {
-
+        MDPlayMovie.isPaused = true;
+        //context.playTime = 0;
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setMovieDisplayer(new MDIdle(context));
     }
 
     @Override

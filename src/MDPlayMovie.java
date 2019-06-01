@@ -53,7 +53,8 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void downloadAborted() {
-
+        context.percent = 0;
+        movieOff();
     }
 
     @Override
@@ -87,6 +88,11 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void movieOff() {
+        isPaused = true;
+        //context.playTime = 0;
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setMovieDisplayer(new MDIdle(context));
 
     }
 
