@@ -1,9 +1,10 @@
 public class MDPlayMovie extends MovieDisplayer {
+    private boolean alive = true;
     static public boolean isPaused = false;
     Thread timeCounter = new Thread(new Runnable() {
         @Override
         public void run() {
-            while(true){
+            while(alive){
                 try {
                     Thread.sleep(1000);
                     if(isPaused)
@@ -42,7 +43,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void internetOff() {
-        context.problem = "internet";
+        context.problemI = true;
         this.holdMovie();
     }
 
@@ -59,7 +60,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void downloadError() {
-        context.problem = "error";
+        context.problemE = true;
         this.holdMovie();
     }
 
@@ -108,6 +109,7 @@ public class MDPlayMovie extends MovieDisplayer {
 
     @Override
     public void exit() {
+        alive = false;
         System.out.println("exit MovieDisplayer-Play state");
     }
 }

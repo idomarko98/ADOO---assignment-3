@@ -1,8 +1,9 @@
 public class MDPauseMovie extends MovieDisplayer{
+    private boolean alive = true;
     Thread timeCounter = new Thread(new Runnable() {
         @Override
         public void run() {
-            while(true){
+            while(alive){
                 try {
                     Thread.sleep(1000);
                     if(context.percent==100){
@@ -20,7 +21,7 @@ public class MDPauseMovie extends MovieDisplayer{
         public void run() {
             try {
                 Thread.sleep(3000);
-                if(context.problem=="error"){
+                if(context.problemE){
                     movieOff();
                 }
             }
@@ -33,7 +34,7 @@ public class MDPauseMovie extends MovieDisplayer{
     public MDPauseMovie(Context context) {
         super(context);
         timeCounter.start();
-        if(context.problem=="error")
+        if(context.problemE)
             errorCounter.start();
     }
 
@@ -49,13 +50,19 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void internetOn() {
-        context.problem = null;
+        context.problemI = false;
+        try{
+            Thread.sleep(1000);
+        }
+        catch(java.lang.InterruptedException e){
+            e.printStackTrace();
+        }
         this.resume();
     }
 
     @Override
     public void internetOff() {
-
+        context.problemI = true;
     }
 
     @Override
@@ -74,12 +81,13 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void downloadError() {
+        context.problemE = true;
         errorCounter.start();
     }
 
     @Override
     public void errorFixed() {
-        context.problem = null;
+        context.problemE = false;
         this.resume();
     }
 
@@ -109,8 +117,8 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void resume() {
-        if(context.problem != null){
-            System.out.println("Cannot resume a movie while an error exists!");
+        if(context.problemE || context.problemI){
+            System.out.println("Cannot resume a movie while an error exists or internet is off!");
             return;
         }
         On on = (On) context.currentState;
@@ -125,6 +133,7 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void exit() {
+        alive = false;
         System.out.println("exit MovieDisplayer-Pause state");
     }
 }
