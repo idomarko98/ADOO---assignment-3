@@ -95,6 +95,12 @@ public class Context {
             case "restartMovie":
                 this.currentState.restartMovie();
                 break;
+            case "connect":
+                this.connected = true;
+                break;
+            case "disconnect":
+                this.connected = false;
+                break;
         }
     }
 
