@@ -77,6 +77,10 @@ public class MDPlayMovie extends MovieDisplayer {
     @Override
     public void restartMovie() {
         context.playTime = 0;
+        On on = (On) context.currentState;
+        on.exitState(this);
+        on.setMovieDisplayer(new MDPlayMovie(context));
+
     }
 
     @Override
