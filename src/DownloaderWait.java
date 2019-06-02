@@ -19,6 +19,7 @@ public class DownloaderWait extends Downloader {
             On on = (On) context.currentState;
             context.downloadStop = true;
             context.currentDownload = -1;
+            context.percent = 0;
             on.exitState(this);
             on.setDownloader(new DownloaderIdle(context));
             context.waited = false;

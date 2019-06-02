@@ -29,6 +29,7 @@ public class DownloaderError extends Downloader {
         on.exitState(this);
         context.downloadStop = true;
         context.currentDownload = -1;
+        context.percent = 0;
         on.setDownloader(new DownloaderIdle(context));
     }
 
