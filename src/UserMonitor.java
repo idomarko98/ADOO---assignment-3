@@ -16,7 +16,8 @@ public abstract class UserMonitor extends Astate implements IState{
                 public void run() {
                     while (true) {
                         if(context.downloadStop){
-                            context.points = context.points - 1;
+                            if(context.points > 0)
+                                context.points = context.points - 1;
                             context.downloadStop = false;
                             //System.out.println(context.points);
                         }
