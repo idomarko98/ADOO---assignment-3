@@ -14,7 +14,9 @@ public class Context {
     public volatile int percent = 0; //percent of download
     public volatile boolean downloadStop = false; //boolean rather a download was stopped for any reason
     public int playTime = 0; //where is the movie at
-    public String problem; //will save the problem of the paused screening
+    //public String problem; //will save the problem of the paused screening
+    public boolean problemE = false; //boolean rather there is a problem with the downloading
+    public boolean problemI = false; //boolean rather there is a problem with the internet
     public String status; //status of the user
     public volatile int points; //points of the user
 
