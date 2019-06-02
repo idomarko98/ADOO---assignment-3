@@ -57,12 +57,23 @@ public class MDPauseMovie extends MovieDisplayer{
         catch(java.lang.InterruptedException e){
             e.printStackTrace();
         }
-        this.resume();
+        if(!context.problemE && !context.problemI)
+            this.resume();
+        else{
+            On on = (On) context.currentState;
+            on.exitState(this);
+            on.setMovieDisplayer(new MDPauseMovie(context));
+        }
     }
 
     @Override
     public void internetOff() {
-        context.problemI = true;
+        if(!context.problemI) {
+            context.problemI = true;
+            On on = (On) context.currentState;
+            on.exitState(this);
+            on.setMovieDisplayer(new MDPauseMovie(context));
+        }
     }
 
     @Override
@@ -81,14 +92,25 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void downloadError() {
-        context.problemE = true;
-        errorCounter.start();
+        if(!context.problemE){
+            context.problemE = true;
+            //errorCounter.start();
+            On on = (On) context.currentState;
+            on.exitState(this);
+            on.setMovieDisplayer(new MDPauseMovie(context));
+        }
     }
 
     @Override
     public void errorFixed() {
         context.problemE = false;
-        this.resume();
+        if(!context.problemE && !context.problemI)
+            this.resume();
+        else{
+            On on = (On) context.currentState;
+            on.exitState(this);
+            on.setMovieDisplayer(new MDPauseMovie(context));
+        }
     }
 
     @Override
@@ -98,8 +120,7 @@ public class MDPauseMovie extends MovieDisplayer{
 
     @Override
     public void restartMovie() {
-        context.playTime = 0;
-        this.resume();
+
     }
 
     @Override
